@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 # ---------------- Encabezado ----------------
 st.set_page_config(page_title="k-means simple", layout="centered")
 st.title("Aprendizaje no supervisado: k-means")
-st.caption("By Oziel Velazquez ITC")
+
 
 # ---------------- Cargar datos ----------------
 st.subheader("cargar datos")
@@ -34,13 +34,13 @@ if col1 == col2:
     st.warning("Selecciona columnas distintas para X y Y.")
     st.stop()
 
-k = st.slider("k (número de clusters)", 2, 10, 3, 1)
+k = ("k (número de clusters)", 2, 10, 3, 1)
 
 # ---------------- Preparar & modelar ----------------
 X = df[[col1, col2]].copy()
 
 # Normaliza 0..1 (igual que en tu referencia de ejes)
-scaler = MinMaxScaler()
+
 Xn = scaler.fit_transform(X)
 
 kmeans = KMeans(n_clusters=k, init="k-means++", n_init=10, random_state=42)
