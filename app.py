@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 # ---------------- Encabezado ----------------
 st.set_page_config(page_title="k-means simple", layout="centered")
 st.title("Aprendizaje no supervisado: k-means")
-
+st.caption("By Oziel Velazquez ITC")
 
 # ---------------- Cargar datos ----------------
 st.subheader("cargar datos")
@@ -34,13 +34,14 @@ if col1 == col2:
     st.warning("Selecciona columnas distintas para X y Y.")
     st.stop()
 
-k = ("k (número de clusters)", 2, 10, 3, 1)
+# Valor fijo de k (sin slider)
+k = 3  # ← puedes cambiar el número aquí si lo deseas
 
 # ---------------- Preparar & modelar ----------------
 X = df[[col1, col2]].copy()
 
-# Normaliza 0..1 (igual que en tu referencia de ejes)
-
+# Normaliza 0..1 (igual que en tu referencia)
+scaler = MinMaxScaler()
 Xn = scaler.fit_transform(X)
 
 kmeans = KMeans(n_clusters=k, init="k-means++", n_init=10, random_state=42)
@@ -48,29 +49,23 @@ labels = kmeans.fit_predict(Xn)
 inertia = float(kmeans.inertia_)
 centroids = kmeans.cluster_centers_
 
-# ---- Mostrar centroides (como arreglo) e inercia, igual que tu ejemplo
+# ---- Mostrar centroides (como arreglo) e inercia
 st.write(centroids.tolist())
 st.write(inertia)
 
 # ---------------- Dispersión con centroides ----------------
 fig1, ax1 = plt.subplots()
 
-# puntos por cluster
 for c in range(k):
     idx = labels == c
     ax1.scatter(Xn[idx, 0], Xn[idx, 1], alpha=0.85)
 
-# centroides con cruz grande
 ax1.scatter(centroids[:, 0], centroids[:, 1], marker="+", s=300)
-
-# títulos y ejes
 ax1.set_title("clientes")
 ax1.set_xlabel(col1 if col1 else "X")
 ax1.set_ylabel(col2 if col2 else "Y")
 
-# texto k e inercia a la derecha (como en tu captura)
 ax1.text(1.02, 0.75, f"k={k}\nInercia = {inertia:.2f}", transform=ax1.transAxes)
-
 st.pyplot(fig1)
 
 # ---------------- Método del codo ----------------
