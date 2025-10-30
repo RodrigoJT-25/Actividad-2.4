@@ -7,7 +7,6 @@ import matplotlib.pyplot as plt
 # --- Encabezado ---
 st.set_page_config(page_title="k-means básico", layout="centered")
 st.title("Aprendizaje no supervisado: k-means")
-st.caption("By Oziel Velazquez ITC")
 
 st.subheader("cargar datos")
 file = st.file_uploader("Sube un archivo CSV con tus datos", type=["csv"])
