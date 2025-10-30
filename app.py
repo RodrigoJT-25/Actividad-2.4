@@ -8,7 +8,6 @@ import matplotlib.pyplot as plt
 # ---------------- Encabezado ----------------
 st.set_page_config(page_title="k-means simple", layout="centered")
 st.title("Aprendizaje no supervisado: k-means")
-st.caption("By Oziel Velazquez ITC")
 
 # ---------------- Cargar datos ----------------
 st.subheader("cargar datos")
